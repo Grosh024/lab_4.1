@@ -14,7 +14,7 @@ FUN_FACTS = [
     "I’m learning advanced machine learning techniques.",
     "I want to build impactful data-driven applications.",
 ]
-PHOTO_PATH = "assets/20250104_125255.jpg"  # Put a file in repo root or set a URL
+PHOTO_PATH = "C:\\Users\\grosh\\CS39AE\\lab_4.1\\lab_4.1\\streamlit_CS\\assets\\20250104_125255.jpg"  # Put a file in repo root or set a URL
 
 # ---------- Layout ----------
 col1, col2 = st.columns([1, 2], vertical_alignment="center")
