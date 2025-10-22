@@ -7,7 +7,7 @@ import plotly.express as px
 
 st.set_page_config(page_title="Pie Demo", layout="centered")
 
-st.title("Pie Demo — load pie_demo.csv")
+st.title("my pie chart demo 🥧")
 
 # Try to find pie_demo.csv in the repo (search current working dir)
 def find_pie_csv():
