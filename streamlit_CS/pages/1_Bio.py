@@ -16,6 +16,17 @@ FUN_FACTS = [
 ]
 PHOTO_PATH = "streamlit_CS/assets/20250104_125255.jpg"  # Put a file in repo root or set a URL
 
+from PIL import Image
+
+# Open and rotate the image here (replace angle with the actual rotation needed, e.g., 90)
+try:
+    image = Image.open(PHOTO_PATH)
+    image = image.rotate(-90, expand=True)  # Use positive/negative degrees as needed
+    st.image(image, caption="Nathan Groshek", use_container_width=True)
+except Exception:
+    st.info("Add a photo named your_photo.jpg to the repo root, or change PHOTO_PATH.")
+
+
 # ---------- Layout ----------
 col1, col2 = st.columns([1, 2], vertical_alignment="center")
 
