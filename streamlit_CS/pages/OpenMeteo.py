@@ -2,11 +2,12 @@ import streamlit as st
 import pandas as pd
 import requests
 import plotly.express as px
+import time
 
-st.set_page_config(page_title="Denver Temp Timeline", page_icon="🌡️", layout="wide")
+st.set_page_config(page_title="Denver Temperature Timeline", page_icon="🌡️", layout="wide")
 
 LAT, LON = 39.7392, -104.9903
-N_HOURS = 24
+
 WEATHER_URL = (
     f"https://api.open-meteo.com/v1/forecast"
     f"?latitude={LAT}&longitude={LON}"
@@ -32,9 +33,14 @@ def fetch_weather_series(url: str):
     except Exception:
         return None
 
+st.title("🌡️ Denver Temperature – Timeline Chart")
+
+refresh_sec = st.slider("Auto-refresh every seconds", min_value=10, max_value=300, value=60)
+auto_refresh = st.toggle("Enable auto-refresh", value=False)
+last_refresh = st.empty()
+
 df = fetch_weather_series(WEATHER_URL)
 
-st.title("🌡️ Denver Temperature – Timeline Chart")
 if df is not None and len(df) > 1:
     st.metric("Latest Temp (°C)", df["temperature"].iloc[-1])
     st.metric("Latest Wind (m/s)", df["wind"].iloc[-1])
@@ -44,3 +50,9 @@ if df is not None and len(df) > 1:
 else:
     st.warning("No time series data available from the API.")
 
+last_refresh.caption(f"Last refreshed at: {time.strftime('%H:%M:%S')}")
+
+if auto_refresh:
+    time.sleep(refresh_sec)
+    fetch_weather_series.clear()  # Clear cache before rerun
+    st.rerun()
